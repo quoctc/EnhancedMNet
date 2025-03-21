@@ -57,6 +57,7 @@ python train.py -a=v1 -b=128 -d=dogs -r='./dataset/' --filter='Sobel+Img'
 ```
 
 ### Summary
+
 - Use `-a` to specify the model architecture (`v1`, `v2`, `v3`).
 - Use `-b` to set the batch size.
 - Use `-d` to specify the dataset (`dogs`).
