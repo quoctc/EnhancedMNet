@@ -17,7 +17,7 @@ Experimental results on benchmark datasets have validated the effectiveness of o
 To train a model on the Stanford Dogs dataset with a specified architecture and filter, use the following command:
 
 ```bash
-python train.py -a=v1 -b=128 -d=dogs --filter='Sobel+Img'
+python train.py -a=v1 -b=64 -d=dogs --filter='Sobel+Img'
 ```
 
 ### Filter Options
@@ -53,7 +53,7 @@ parser.add_argument('-r', '--data-dir', type=str, default='./dataset/', help='Da
 This allows you to define the dataset path using the `-r` or `--data-dir` parameter when running the script. Example usage:
 
 ```bash
-python train.py -a=v1 -b=128 -d=dogs -r='./dataset/' --filter='Sobel+Img'
+python train.py -a=v1 -b=64 -d=dogs -r='./dataset/' --filter='Sobel+Img'
 ```
 
 ## Validate the trained model of MobileNet V1 with the Augmentation of Sobel+Image
