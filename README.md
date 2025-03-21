@@ -60,7 +60,7 @@ python train.py -a=v1 -b=64 -d=dogs -r='./dataset/' --filter='Sobel+Img'
 
 This repository includes a pretrained model: best_model.pth, trained using MobileNet V1 with the Sobel + Image augmentation technique.
 
-To evaluate the model on the Dogs dataset, run:
+To evaluate the model on the Stanford Dogs dataset, run:
 
 ```bash
 python train.py -a=v1 -b=64 -d=dogs --evaluate --filter='Sobel+Img'
