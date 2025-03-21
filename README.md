@@ -1,6 +1,4 @@
-# EnhancedMNet
-
-**Enhanced MobileNets via Augmentation of Filtering-based Features**
+# Enhanced MobileNets via Augmentation of Filtering-based Features
 
 ## Abstract
 
@@ -12,23 +10,26 @@ Experimental results on benchmark datasets have validated the effectiveness of o
 
 ---
 
-# Training on CIFAR-10
+## Example of Training on Stanford Dogs dataset
 
-## Usage Example
-To train a model on the CIFAR-10 dataset with a specified architecture and filter, use the following command:
+### Usage Example
+
+To train a model on the Stanford Dogs dataset with a specified architecture and filter, use the following command:
 
 ```bash
-python train.py -a=v1 -b=128 -d=CIFAR10 --filter='Sobel+Img'
+python train.py -a=v1 -b=128 -d=dogs --filter='Sobel+Img'
 ```
 
-## Filter Options
+### Filter Options
+
 The training script supports applying specific filters to the input images before training. You can choose one of the following filters:
 
 - `'Sobel+Img'`: Applies the Sobel filter.
 - `'LoG+Img'`: Applies the Laplacian of Gaussian (LoG) filter.
 - `'Gabor+Img'`: Applies the Gabor filter.
 
-## Model Architecture Selection
+### Model Architecture Selection
+
 To specify the MobileNet architecture, the training script includes an argument parser. You can set the architecture using the `-a` or `--architecture` parameter:
 
 ```python
@@ -38,10 +39,11 @@ parser.add_argument('-a', '--architecture', type=str, default='v1', choices=['v1
 Example command to train using MobileNetV3:
 
 ```bash
-python train.py -a=v3 -b=64 -d=CIFAR10 -r='./dataset/' --filter='LoG+Img'
+python train.py -a=v3 -b=64 -d=dogs -r='./dataset/' --filter='Sobel+Img'
 ```
 
-## Dataset Path Configuration
+### Dataset Path Configuration
+
 Depending on your system setup, you may need to specify the dataset path. To do this, modify the training script by adding the following argument:
 
 ```python
@@ -51,13 +53,13 @@ parser.add_argument('-r', '--data-dir', type=str, default='./dataset/', help='Da
 This allows you to define the dataset path using the `-r` or `--data-dir` parameter when running the script. Example usage:
 
 ```bash
-python train.py -a=v1 -b=128 -d=CIFAR10 -r='./dataset/' --filter='Sobel+Img'
+python train.py -a=v1 -b=128 -d=dogs -r='./dataset/' --filter='Sobel+Img'
 ```
 
-## Summary
+### Summary
 - Use `-a` to specify the model architecture (`v1`, `v2`, `v3`).
 - Use `-b` to set the batch size.
-- Use `-d` to specify the dataset (`CIFAR10`).
+- Use `-d` to specify the dataset (`dogs`).
 - Use `-r` to set the dataset path.
 - Use `--filter` to apply an image filter before training.
 

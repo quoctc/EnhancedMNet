@@ -4,6 +4,7 @@ import argparse
 import sys
 import os
 import csv
+import time
 
 import torch
 import torch.nn
@@ -41,6 +42,7 @@ def get_args():
     parser.add_argument('-s', '--schedule', nargs='+', default=[100, 150, 180], type=int, help='Learning rate schedule (epochs after which the learning rate should be dropped).')    
     parser.add_argument('-m', '--momentum', default=0.9, type=float, help='SGD momentum.')
     parser.add_argument('-w', '--weight-decay', default=1e-4, type=float, help='SGD weight decay.')
+    parser.add_argument('-eval', '--evaluate', dest='evaluate', action='store_true', help='evaluate model on validation set')
     parser.add_argument('-gb', '--gb-filters', default=8, type=int, help='# of gabor filters')
     parser.add_argument('--alpha', default=1.0, type=float, help='Network weighting coefficient for the regularization loss.')
     parser.add_argument('--filter', type=str, default='Gabor+Img', choices=['Sobel+Img', 'LoG+Img', 'Gabor+Img'], help='Select filter to use')
@@ -254,6 +256,20 @@ def main():
     print('Number of model parameters: {}'.format(
     sum([p.data.nelement() for p in model.parameters()])))
 
+    if args.evaluate:
+        pathcheckpoint = "" + "best_model.pth"
+        if os.path.isfile(pathcheckpoint):
+            print("=> loading checkpoint '{}'".format(pathcheckpoint))
+            checkpoint = torch.load(pathcheckpoint)
+            if 'state_dict' in checkpoint:
+                model.load_state_dict(checkpoint['state_dict'])
+            else:
+                model.load_state_dict(checkpoint)
+            del checkpoint
+        else:
+            print("=> no checkpoint found at '{}'".format(pathcheckpoint))
+            return
+    
     # prepare save path
     folder_name = [args.architecture, args.mode, args.dataset, 'wm'+str(args.alpha), 'bs'+str(args.batch_size), str(args.weight_decay), 'epochs'+str(args.epochs), 'filter'+str(args.filter)]
     folder_name = '-'.join(folder_name)
@@ -270,7 +286,15 @@ def main():
     criterion = torch.nn.CrossEntropyLoss().to(device)
     optimizer = torch.optim.SGD(params=model.parameters(), lr=args.learning_rate, momentum=args.momentum, weight_decay=args.weight_decay)
     scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer=optimizer, milestones=args.schedule, gamma=0.1)
-             
+        
+    if args.evaluate:
+        m = time.time()
+        (loss_val, acc_val) = run_epoch(train=False, data_loader=val_loader, model=model, criterion=criterion, optimizer=None, n_epoch=0, args=args, device=device)
+        n = time.time()
+        print((n-m)/3600)
+        print('Validation loss: {:.2f},  accuracy: {:.2f}%'.format(loss_val, 100.0 * acc_val))
+        return
+
     # for each epoch...
     acc_val_max = None
     acc_val_argmax = None
