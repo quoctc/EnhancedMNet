@@ -56,6 +56,16 @@ This allows you to define the dataset path using the `-r` or `--data-dir` parame
 python train.py -a=v1 -b=128 -d=dogs -r='./dataset/' --filter='Sobel+Img'
 ```
 
+## Validate the trained model of MobileNet V1 with the Augmentation of Sobel+Image
+
+This repository includes a pretrained model: best_model.pth, trained using MobileNet V1 with the Sobel + Image augmentation technique.
+
+To evaluate the model on the Dogs dataset, run:
+
+```bash
+python train.py -a=v1 -b=64 -d=dogs --evaluate --filter='Sobel+Img'
+```
+
 ### Summary
 
 - Use `-a` to specify the model architecture (`v1`, `v2`, `v3`).
