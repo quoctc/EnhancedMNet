@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-#chi con thu 128 voi MAFC binh thuong xem sao
-"""
-Created on Thu Mar 30 11:39:11 2023
-
-@author: nguyen
-"""
 import os
 #os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 #os.environ["CUDA_VISIBLE_DEVICES"] = "1,2"  # specify which GPU(s) to be used
