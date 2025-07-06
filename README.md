@@ -75,3 +75,16 @@ python train.py -a=v1 -b=64 -d=dogs --evaluate --filter='Sobel+Img'
 - Use `--filter` to apply an image filter before training.
 
 This guide ensures smooth configuration and execution of the training process for CIFAR-10.
+
+## Related citations
+
+If you use any materials, please cite the following relevant works.
+
+<pre lang="markdown">
+@inproceedings{AoFFTran2025,
+  author    = {Cong Quoc Tran, Thanh Tuan Nguyen, Thinh Vinh Le, and Thanh Phuong Nguyen},
+  title     = {Enhanced MobileNets via Augmentation of Filtering-based Features},
+  booktitle = {MAPR},
+  year      = {Accepted in 2025}
+}
+</pre>
